@@ -16,7 +16,8 @@ public interface StatsRepository extends JpaRepository<Hit, Long> {
            "FROM Hit h " +
            "WHERE h.timestamp BETWEEN :start AND :end " +
            "AND (:uris IS NULL OR h.uri IN :uris) " +
-           "GROUP BY h.app, h.uri")
+           "GROUP BY h.app, h.uri " +
+           "ORDER BY COUNT(h.ip) DESC")
     List<StatsResponseDto> findAllHits(@Param("start") LocalDateTime start,
                                        @Param("end") LocalDateTime end,
                                        @Param("uris") List<String> uris);
@@ -25,7 +26,8 @@ public interface StatsRepository extends JpaRepository<Hit, Long> {
            "FROM Hit h " +
            "WHERE h.timestamp BETWEEN :start AND :end " +
            "AND (:uris IS NULL OR h.uri IN :uris) " +
-           "GROUP BY h.app, h.uri")
+           "GROUP BY h.app, h.uri " +
+           "ORDER BY COUNT(DISTINCT h.ip) DESC")
     List<StatsResponseDto> findUniqueHits(@Param("start") LocalDateTime start,
                                           @Param("end") LocalDateTime end,
                                           @Param("uris") List<String> uris);

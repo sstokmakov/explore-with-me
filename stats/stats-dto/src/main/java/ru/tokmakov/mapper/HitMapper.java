@@ -1,16 +1,15 @@
 package ru.tokmakov.mapper;
 
+import lombok.experimental.UtilityClass;
 import ru.tokmakov.dto.HitDto;
 import ru.tokmakov.model.Hit;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@UtilityClass
 public class HitMapper {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-    private HitMapper() {
-    }
 
     public static Hit hitDtoToHit(HitDto hitDto) {
         Hit hit = new Hit();

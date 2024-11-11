@@ -3,7 +3,7 @@ package ru.tokmakov.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.tokmakov.service.StatsService;
+import ru.tokmakov.service.StatsServiceImpl;
 import ru.tokmakov.dto.HitDto;
 import ru.tokmakov.dto.StatsResponseDto;
 
@@ -11,12 +11,11 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/stats")
 public class StatsController {
 
-    private final StatsService statsService;
+    private final StatsServiceImpl statsService;
 
-    public StatsController(StatsService statsService) {
+    public StatsController(StatsServiceImpl statsService) {
         this.statsService = statsService;
     }
 
@@ -29,7 +28,7 @@ public class StatsController {
         return savedHit;
     }
 
-    @GetMapping
+    @GetMapping("/stats")
     @ResponseStatus(HttpStatus.OK)
     public List<StatsResponseDto> getStatistics(
             @RequestParam(value = "start") String start,
