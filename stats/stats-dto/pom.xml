@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>stats-dto</artifactId>
+    <artifactId>stats-ru.tokmakov.dto</artifactId>
     <packaging>jar</packaging>
 
     <properties>
