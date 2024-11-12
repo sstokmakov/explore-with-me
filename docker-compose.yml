@@ -20,14 +20,31 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - stats-db-data:/var/lib/postgresql/data
+      - stats-db-data:/var/lib/postgresql/stats_data
 
-#  ewm-service:
-#    ports:
-#      - "8080:8080"
-#
-#  ewm-db:
-#    image: postgres:16.1
+  ewm-service:
+    depends_on:
+      - ewm-db
+    build:
+      context: main-service/.
+      dockerfile: Dockerfile
+    container_name: main_service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ewm-db:5432/java-explore-with-me-main
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    ports:
+      - "8080:8080"
+
+  ewm-db:
+    image: postgres:16.1
+    environment:
+      POSTGRES_DB: java-explore-with-me-main
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - main-db-data:/var/lib/postgresql/main_data
 
 volumes:
+  main-db-data:
   stats-db-data:

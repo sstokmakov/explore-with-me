@@ -9,6 +9,12 @@ CREATE TABLE IF NOT EXISTS users (
                        name VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS compilations (
+                                            id SERIAL PRIMARY KEY,
+                                            pinned BOOLEAN NOT NULL,
+                                            title VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS events (
                         id SERIAL PRIMARY KEY,
                         annotation VARCHAR(255) NOT NULL,
@@ -33,10 +39,4 @@ CREATE TABLE IF NOT EXISTS compilation_events (
                                                   compilation_id BIGINT NOT NULL REFERENCES compilations(id) ON DELETE CASCADE,
                                                   event_id BIGINT NOT NULL REFERENCES events(id) ON DELETE CASCADE,
                                                   PRIMARY KEY (compilation_id, event_id)
-);
-
-CREATE TABLE IF NOT EXISTS compilations (
-                                            id SERIAL PRIMARY KEY,
-                                            pinned BOOLEAN NOT NULL,
-                                            title VARCHAR(255) NOT NULL
 );
