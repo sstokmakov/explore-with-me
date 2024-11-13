@@ -32,7 +32,7 @@ public class AdminUsersServiceImpl implements AdminUsersService {
             result = adminUsersRepository.findAllUsers(from, size);
         } else {
             log.info("Fetching users with ids: {} from {} with a size of {}", ids, from, size);
-            result = adminUsersRepository.findAllById(ids);
+            result = adminUsersRepository.findUsersByIds(ids, from, size);
         }
 
         log.info("Found {} users", result.size());

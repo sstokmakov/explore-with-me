@@ -1,5 +1,8 @@
 package ru.tokmakov.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import ru.tokmakov.dto.event.ApplicationStatus;
 import jakarta.persistence.*;
 
@@ -9,6 +12,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "events")
+@Getter
+@Setter
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

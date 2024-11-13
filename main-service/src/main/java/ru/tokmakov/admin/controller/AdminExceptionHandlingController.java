@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import ru.tokmakov.admin.exception.EmailAlreadyExistsException;
-import ru.tokmakov.admin.exception.UserNotFoundException;
+import ru.tokmakov.admin.exception.*;
 import ru.tokmakov.dto.ErrorResponse;
 
 import java.time.LocalDateTime;
@@ -29,9 +28,14 @@ public class AdminExceptionHandlingController {
         );
     }
 
-    @ExceptionHandler(EmailAlreadyExistsException.class)
+    @ExceptionHandler(
+            {
+                    CategoryNameAlreadyExistsException.class,
+                    EmailAlreadyExistsException.class,
+                    CategoryNotEmptyException.class
+            })
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleDataIntegrityViolationException(EmailAlreadyExistsException e) {
+    public ErrorResponse handleDataIntegrityViolationException(RuntimeException e) {
         return new ErrorResponse(
                 "CONFLICT",
                 "Integrity constraint has been violated.",
@@ -40,9 +44,9 @@ public class AdminExceptionHandlingController {
         );
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler({UserNotFoundException.class, CategoryNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleUserNotFoundException(UserNotFoundException e) {
+    public ErrorResponse handleUserNotFoundException(RuntimeException e) {
         return new ErrorResponse(
                 "NOT_FOUND",
                 "The required object was not found.",

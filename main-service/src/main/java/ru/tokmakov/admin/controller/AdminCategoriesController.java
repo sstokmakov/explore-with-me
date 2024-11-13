@@ -1,7 +1,8 @@
 package ru.tokmakov.admin.controller;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
+import ru.tokmakov.admin.exception.CategoryNotFoundException;
 import ru.tokmakov.dto.category.CategoryDto;
 import ru.tokmakov.dto.category.NewCategoryDto;
 import ru.tokmakov.admin.service.AdminCategoriesService;
@@ -19,20 +20,31 @@ public class AdminCategoriesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryDto saveCategory(@Valid @NotNull @RequestBody NewCategoryDto newCategoryDto) {
-        return adminCategoriesService.saveCategory(newCategoryDto);
+    public CategoryDto saveCategory(@Validated @NotNull @RequestBody NewCategoryDto newCategoryDto) {
+        log.info("Request received to save category: {}", newCategoryDto);
+
+        CategoryDto savedCategory = adminCategoriesService.saveCategory(newCategoryDto);
+
+        log.info("Category saved successfully: {}", savedCategory);
+
+        return savedCategory;
     }
 
     @DeleteMapping("/{catId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable long catId) {
+        log.info("Attempting to delete category with ID: {}", catId);
         adminCategoriesService.deleteCategory(catId);
+        log.info("Category deleted successfully: {}", catId);
     }
 
     @PatchMapping("/{catId}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDto updateCategory(@PathVariable long catId,
-                                      @Valid @NotNull @RequestBody NewCategoryDto newCategoryDto) {
-        return adminCategoriesService.updateCategory(catId, newCategoryDto);
+                                      @Validated @NotNull @RequestBody NewCategoryDto newCategoryDto) {
+        log.info("Attempting to update category with ID: {}", catId);
+        CategoryDto updatedCategory = adminCategoriesService.updateCategory(catId, newCategoryDto);
+        log.info("Category updated successfully: {}", catId);
+        return updatedCategory;
     }
 }
