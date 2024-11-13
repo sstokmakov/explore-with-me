@@ -1,5 +1,6 @@
 package ru.tokmakov.user.controller;
 
+import jakarta.validation.Valid;
 import ru.tokmakov.dto.event.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,8 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.tokmakov.user.service.UserEventService;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Slf4j

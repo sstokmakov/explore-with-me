@@ -1,5 +1,7 @@
 package ru.tokmakov.admin.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import ru.tokmakov.dto.event.UpdateEventAdminRequest;
 import ru.tokmakov.admin.service.AdminEventsService;
 import lombok.AllArgsConstructor;
@@ -8,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.tokmakov.dto.event.EventFullDto;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Slf4j
