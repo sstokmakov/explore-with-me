@@ -2,7 +2,6 @@ package ru.tokmakov.admin.controller;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
-import ru.tokmakov.admin.exception.CategoryNotFoundException;
 import ru.tokmakov.dto.category.CategoryDto;
 import ru.tokmakov.dto.category.NewCategoryDto;
 import ru.tokmakov.admin.service.AdminCategoriesService;

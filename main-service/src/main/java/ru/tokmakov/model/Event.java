@@ -1,6 +1,5 @@
 package ru.tokmakov.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.tokmakov.dto.event.ApplicationStatus;
