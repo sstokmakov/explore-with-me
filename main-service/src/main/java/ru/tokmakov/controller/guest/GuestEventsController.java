@@ -1,5 +1,6 @@
 package ru.tokmakov.controller.guest;
 
+import jakarta.servlet.http.HttpServletRequest;
 import ru.tokmakov.dto.event.EventFullDto;
 import ru.tokmakov.dto.event.SortType;
 import ru.tokmakov.service.guest.GuestEventsService;
@@ -28,13 +29,14 @@ public class GuestEventsController {
                                           @RequestParam(required = false, defaultValue = "false") Boolean onlyAvailable,
                                           @RequestParam SortType sort,
                                           @RequestParam(required = false, defaultValue = "0") int from,
-                                          @RequestParam(required = false, defaultValue = "10") int size) {
-        return guestEventsService.findEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+                                          @RequestParam(required = false, defaultValue = "10") int size,
+                                          HttpServletRequest request) {
+        return guestEventsService.findEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size, request);
     }
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public EventFullDto findEventById(@PathVariable long id) {
-        return guestEventsService.findEventById(id);
+    public EventFullDto findEventById(@PathVariable long id, HttpServletRequest request) {
+        return guestEventsService.findEventById(id, request);
     }
 }

@@ -45,6 +45,12 @@
             <version>6.6.0.Final</version>
             <type>pom</type>
         </dependency>
+
+        <dependency>
+            <groupId>ru.tokmakov</groupId>
+            <artifactId>stats-client</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

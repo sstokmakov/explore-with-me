@@ -215,7 +215,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:9090/stats?start=2022-09-01 00:00:00&end=2022-09-30 23:59:59",
+							"raw": "http://localhost:9090/stats?start=2022-09-01 00:00:00&end=2027-09-30 23:59:59",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -231,7 +231,7 @@
 								},
 								{
 									"key": "end",
-									"value": "2022-09-30 23:59:59"
+									"value": "2027-09-30 23:59:59"
 								}
 							]
 						}
@@ -314,6 +314,4430 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "main-service",
+			"item": [
+				{
+					"name": "save users",
+					"item": [
+						{
+							"name": "correct save user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Пользователь успешно зарегистрирован\", function () {",
+											"  pm.response.to.have.status(201);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson).to.have.property(\"id\");",
+											"  pm.expect(responseJson.email).to.eql(\"testSaveUser@gmail.com\");",
+											"  pm.expect(responseJson.name).to.eql(\"username\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"testSaveUser@gmail.com\",\n  \"name\": \"username\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "correct save user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Пользователь успешно зарегистрирован\", function () {",
+											"  pm.response.to.have.status(201);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson).to.have.property(\"id\");",
+											"  pm.expect(responseJson.email).to.eql(\"testSaveUser2@gmail.com\");",
+											"  pm.expect(responseJson.name).to.eql(\"username\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"testSaveUser2@gmail.com\",\n  \"name\": \"username\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "correct save user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Пользователь успешно зарегистрирован\", function () {",
+											"  pm.response.to.have.status(201);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson).to.have.property(\"id\");",
+											"  pm.expect(responseJson.email).to.eql(\"testSaveUser3@gmail.com\");",
+											"  pm.expect(responseJson.name).to.eql(\"username\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"testSaveUser3@gmail.com\",\n  \"name\": \"username\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user save empty name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный запрос\", function () {",
+											"  pm.response.to.have.status(400);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson.status).to.eql(\"BAD_REQUEST\");",
+											"  pm.expect(responseJson.message).to.include(\"must not be blank\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"test@mail.ru\",\n  \"name\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user save already exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Нарушение целостности данных\", function () {",
+											"  pm.response.to.have.status(409);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson.status).to.eql(\"CONFLICT\");",
+											"  pm.expect(responseJson.message).to.include(\"Email already exists\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"testSaveUser@gmail.com\",\n  \"name\": \"Иван Петров\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user save without email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Пропущено обязательное поле email\", function () {",
+											"  pm.response.to.have.status(400);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson.status).to.eql(\"BAD_REQUEST\");",
+											"  pm.expect(responseJson.message).to.include(\"email\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"username\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get users without ids",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Возвращены пользователи\", function () {",
+											"  pm.response.to.have.status(200);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson).to.be.an(\"array\").that.is.not.empty;",
+											"  pm.expect(responseJson[0]).to.have.property(\"id\");",
+											"  pm.expect(responseJson[0]).to.have.property(\"email\");",
+											"  pm.expect(responseJson[0]).to.have.property(\"name\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/admin/users?size=10&from=0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "from",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get users with ids",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Возвращены пользователи с указанными идентификаторами\", function () {",
+											"  pm.response.to.have.status(200);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson).to.be.an(\"array\").that.is.not.empty;",
+											"  pm.expect(responseJson[0].id).to.be.oneOf([1, 2, 3]);",
+											"  pm.expect(responseJson[1].id).to.be.oneOf([1, 2, 3]);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/users?ids=1,2,3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									],
+									"query": [
+										{
+											"key": "ids",
+											"value": "1,2,3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get users without params",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Возвращены пользователи\", function () {",
+											"  pm.response.to.have.status(200);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson).to.be.an(\"array\").that.is.not.empty;",
+											"  pm.expect(responseJson[0]).to.have.property(\"id\");",
+											"  pm.expect(responseJson[0]).to.have.property(\"email\");",
+											"  pm.expect(responseJson[0]).to.have.property(\"name\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/admin/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get users incorrect request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный параметр запроса\", function () {",
+											"  pm.response.to.have.status(400);",
+											"  const responseJson = pm.response.json();",
+											"  pm.expect(responseJson.status).to.eql(\"BAD_REQUEST\");",
+											"  pm.expect(responseJson.message).to.include(\"Failed to convert value\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/users?size=abc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "abc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete correct",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/admin/users/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Response contains correct error message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"NOT_FOUND\");",
+											"    pm.expect(jsonData.message).to.eql(\"User with id 9999 not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/users/9999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"users",
+										"9999"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "save categories",
+					"item": [
+						{
+							"name": "correct save category",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Категория успешно создана\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    const responseJson = pm.response.json()",
+											"    pm.expect(responseJson).to.have.property(\"id\")",
+											"    pm.expect(responseJson).to.have.property(\"name\")",
+											"    pm.expect(responseJson.name).to.equal(\"Концерты\")",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Концерты\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "correct save category",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Категория успешно создана\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    const responseJson = pm.response.json()",
+											"    pm.expect(responseJson).to.have.property(\"id\")",
+											"    pm.expect(responseJson).to.have.property(\"name\")",
+											"    pm.expect(responseJson.name).to.equal(\"Мероприятия\")",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Мероприятия\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "correct save category",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Категория успешно создана\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    const responseJson = pm.response.json()",
+											"    pm.expect(responseJson).to.have.property(\"id\")",
+											"    pm.expect(responseJson).to.have.property(\"name\")",
+											"    pm.expect(responseJson.name).to.equal(\"category 1\")",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"category 1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save category empty name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный запрос с пустым именем категории\", function () {",
+											"    const responseJson = pm.response.json();",
+											"    pm.response.to.have.status(400);",
+											"    pm.expect(responseJson.status).to.eql(\"BAD_REQUEST\");",
+											"    pm.expect(responseJson.message).to.include(\"must not be blank\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save category duplicate name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Нарушение уникальности имени категории\", function () {",
+											"    const responseJson = pm.response.json();",
+											"    pm.response.to.have.status(409);",
+											"    pm.expect(responseJson.status).to.eql(\"CONFLICT\");",
+											"    pm.expect(responseJson.reason).to.include(\"Integrity constraint has been violated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Концерты\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save category no name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Отсутствует поле 'name' в запросе\", function () {",
+											"    const responseJson = pm.response.json();",
+											"    pm.response.to.have.status(400);",
+											"    pm.expect(responseJson.status).to.eql(\"BAD_REQUEST\");",
+											"    pm.expect(responseJson.message).to.include(\"must not be blank\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete category correct",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Response contains event details\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property(\"id\");",
+											"    pm.expect(jsonData.title).to.eql(\"Сплав на байдарках\");",
+											"    pm.expect(jsonData.location.lat).to.eql(55.754167);",
+											"    pm.expect(jsonData.location.lon).to.eql(37.62);",
+											"    pm.expect(new Date(jsonData.eventDate).getTime()).to.be.greaterThan(new Date().getTime());",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Сплав на байдарках похож на полет.\",\n  \"category\": 2,\n  \"description\": \"Сплав на байдарках похож на полет. На спокойной воде — это парение. На бурной, порожистой — выполнение фигур высшего пилотажа. И то, и другое дарят чувство обновления, феерические эмоции, яркие впечатления.\",\n  \"eventDate\": \"2024-12-31 15:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 10,\n  \"requestModeration\": false,\n  \"title\": \"Сплав на байдарках\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete category not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Error response contains correct structure and message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"NOT_FOUND\");",
+											"    pm.expect(jsonData.reason).to.eql(\"The required object was not found.\");",
+											"    pm.expect(jsonData.message).to.include(\"not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/admin/categories/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete not empty category",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});",
+											"",
+											"pm.test(\"Conflict response contains correct structure and message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"CONFLICT\");",
+											"    pm.expect(jsonData.reason).to.eql(\"For the requested operation the conditions are not met.\");",
+											"    pm.expect(jsonData.message).to.include(\"category is not empty\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/admin/categories/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update category correct",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response contains updated category ID and name\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property(\"id\");",
+											"    pm.expect(jsonData.name).to.eql(\"Концерты\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Концерты\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update category not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Error response contains correct structure and message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"NOT_FOUND\");",
+											"    pm.expect(jsonData.reason).to.eql(\"The required object was not found.\");",
+											"    pm.expect(jsonData.message).to.include(\"not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Концерты\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update category name not unique",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});",
+											"",
+											"pm.test(\"Conflict response contains correct structure and message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"CONFLICT\");",
+											"    pm.expect(jsonData.reason).to.eql(\"Integrity constraint has been violated.\");",
+											"    pm.expect(jsonData.message).to.include(\"already exists\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Концерты\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/categories/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"categories",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user-events",
+					"item": [
+						{
+							"name": "save event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Response contains event details\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property(\"id\");",
+											"    pm.expect(jsonData.title).to.eql(\"Сплав на байдарках\");",
+											"    pm.expect(jsonData.location.lat).to.eql(55.754167);",
+											"    pm.expect(jsonData.location.lon).to.eql(37.62);",
+											"    pm.expect(new Date(jsonData.eventDate).getTime()).to.be.greaterThan(new Date().getTime());",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Сплав на байдарках похож на полет.\",\n  \"category\": 2,\n  \"description\": \"Сплав на байдарках похож на полет. На спокойной воде — это парение. На бурной, порожистой — выполнение фигур высшего пилотажа. И то, и другое дарят чувство обновления, феерические эмоции, яркие впечатления.\",\n  \"eventDate\": \"2024-12-31 15:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 10,\n  \"requestModeration\": false,\n  \"title\": \"Сплав на байдарках\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save bad request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Error response contains correct structure\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"BAD_REQUEST\");",
+											"    pm.expect(jsonData.reason).to.eql(\"Incorrectly made request.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"\",\n  \"category\": null,\n  \"description\": \"Описание тестового события.\",\n  \"eventDate\": \"2024-12-31 15:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 10,\n  \"requestModeration\": false,\n  \"title\": \"Тестовое событие\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save incorrect date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});",
+											"",
+											"pm.test(\"Error response contains correct structure\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"CONFLICT\");",
+											"    pm.expect(jsonData.reason).to.eql(\"Integrity constraint has been violated.\");",
+											"    pm.expect(jsonData.message).to.include(\"Event date must be in the future\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Сплав на байдарках похож на полет.\",\n  \"category\": 2,\n  \"description\": \"Описание тестового события.\",\n  \"eventDate\": \"2000-12-31 15:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 10,\n  \"requestModeration\": false,\n  \"title\": \"Тестовое событие\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response contains an array of events\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.be.an('array');",
+											"    pm.expect(jsonData.length).to.be.greaterThan(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/1/events?from=0&size=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events empty",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response is an empty array\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData).to.eql([]);\n});\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/2/events?from=0&size=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"events"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events invalid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Error response contains correct structure\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"BAD_REQUEST\");",
+											"    pm.expect(jsonData.reason).to.eql(\"Incorrectly made request.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/2/events?from=0&size=qwe",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"events"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "qwe"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response contains event details\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property(\"id\");",
+											"    pm.expect(jsonData).to.have.property(\"title\");",
+											"    pm.expect(jsonData).to.have.property(\"description\");",
+											"    pm.expect(jsonData).to.have.property(\"eventDate\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "event not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Error response contains correct message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"NOT_FOUND\");",
+											"    pm.expect(jsonData.message).to.include(\"Event with id=999 was not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "incorrect request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Error response contains correct structure\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"BAD_REQUEST\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/qqq",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"qqq"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response contains updated event details\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property(\"id\");",
+											"    pm.expect(jsonData).to.have.property(\"title\").that.equals(\"Сап прогулки по рекам и каналам\");",
+											"    pm.expect(jsonData).to.have.property(\"description\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Сап прогулки по рекам и каналам – это возможность увидеть Практикбург с другого ракурса\",\n  \"category\": 3,\n  \"description\": \"От английского SUP - Stand Up Paddle — \\\"стоя на доске с веслом\\\", гавайская разновидность сёрфинга, в котором серфер, стоя на доске, катается на волнах и при этом гребет веслом, а не руками, как в классическом серфинге.\",\n  \"eventDate\": \"2030-10-11 23:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 7,\n  \"requestModeration\": false,\n  \"stateAction\": \"CANCEL_REVIEW\",\n  \"title\": \"Сап прогулки по рекам и каналам\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update incorrect date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});",
+											"",
+											"pm.test(\"Error message indicates date conflict\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"CONFLICT\");",
+											"    pm.expect(jsonData.message).to.include(\"Event date must be at least 2 hours from now\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Обновленная аннотация для события\",\n  \"category\": 3,\n  \"description\": \"Новый текст описания для события.\",\n  \"eventDate\": \"2020-10-11 01:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 7,\n  \"requestModeration\": false,\n  \"stateAction\": \"CANCEL_REVIEW\",\n  \"title\": \"Сап прогулки по рекам и каналам\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update event not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Error message indicates event not found\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"NOT_FOUND\");",
+											"    pm.expect(jsonData.message).to.include(\"Event with id=999 was not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Обновленная аннотация для события\",\n  \"category\": 3,\n  \"description\": \"Новый текст описания для события.\",\n  \"eventDate\": \"2024-11-11 15:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 7,\n  \"requestModeration\": false,\n  \"stateAction\": \"CANCEL_REVIEW\",\n  \"title\": \"Обновленное название события\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/1/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"1",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "admin-events",
+					"item": [
+						{
+							"name": "update event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code should be 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response body should contain updated event information\", function () {",
+											"    var responseJson = pm.response.json();",
+											"    pm.expect(responseJson.title).to.eql(\"Сап прогулки по рекам и каналам\");",
+											"    pm.expect(responseJson.annotation).to.eql(\"Сап прогулки по рекам и каналам – это возможность увидеть Практикбург с другого ракурса\");",
+											"    pm.expect(responseJson.state).to.eql(\"PUBLISHED\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Сап прогулки по рекам и каналам – это возможность увидеть Практикбург с другого ракурса\",\n  \"category\": 3,\n  \"description\": \"От английского SUP - Stand Up Paddle — \\\"стоя на доске с веслом\\\", гавайская разновидность сёрфинга, в котором серфер, стоя на доске, катается на волнах и при этом гребет веслом, а не руками, как в классическом серфинге.\",\n  \"eventDate\": \"2025-10-11 23:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 7,\n  \"requestModeration\": false,\n  \"stateAction\": \"PUBLISH_EVENT\",\n  \"title\": \"Сап прогулки по рекам и каналам\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update event incorrect date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code should be 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});",
+											"",
+											"pm.test(\"Response body should contain correct error message\", function () {",
+											"    var responseJson = pm.response.json();",
+											"    pm.expect(responseJson.status).to.eql(\"CONFLICT\");",
+											"    pm.expect(responseJson.message).to.include(\"Event date must be at least one hour from the current time.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Обновление события с слишком ранней датой.\",\n  \"category\": 3,\n  \"description\": \"Описание с ошибочной датой.\",\n  \"eventDate\": \"2023-10-11 12:00:00\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 7,\n  \"requestModeration\": false,\n  \"stateAction\": \"PUBLISH_EVENT\",\n  \"title\": \"Сап прогулки\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update event already approve",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code should be 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});",
+											"",
+											"pm.test(\"Response body should contain correct error message\", function () {",
+											"    var responseJson = pm.response.json();",
+											"    pm.expect(responseJson.status).to.eql(\"CONFLICT\");",
+											"    pm.expect(responseJson.message).to.include(\"Cannot publish the event because it's not in the right state: PUBLISHED\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Обновление события с слишком ранней датой.\",\n  \"category\": 3,\n  \"description\": \"Описание с ошибочной датой.\",\n  \"eventDate\": \"2025-10-11 12:00:00\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 7,\n  \"requestModeration\": false,\n  \"stateAction\": \"PUBLISH_EVENT\",\n  \"title\": \"Сап прогулки\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reject event already approved",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code should be 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});",
+											"",
+											"pm.test(\"Response body should contain correct error message\", function () {",
+											"    var responseJson = pm.response.json();",
+											"    pm.expect(responseJson.status).to.eql(\"CONFLICT\");",
+											"    pm.expect(responseJson.message).to.include(\"Cannot cancel the event because it's already published.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Обновление события с слишком ранней датой.\",\n  \"category\": 3,\n  \"description\": \"Описание с ошибочной датой.\",\n  \"eventDate\": \"2025-10-11 12:00:00\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 7,\n  \"requestModeration\": false,\n  \"stateAction\": \"REJECT_EVENT\",\n  \"title\": \"Сап прогулки\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update event not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code should be 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Response body should contain correct error message\", function () {",
+											"    var responseJson = pm.response.json();",
+											"    pm.expect(responseJson.status).to.eql(\"NOT_FOUND\");",
+											"    pm.expect(responseJson.message).to.include(\"Event with id=999 not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Обновление события с слишком ранней датой.\",\n  \"category\": 3,\n  \"description\": \"Описание с ошибочной датой.\",\n  \"eventDate\": \"2025-10-11 12:00:00\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 7,\n  \"requestModeration\": false,\n  \"stateAction\": \"REJECT_EVENT\",\n  \"title\": \"Сап прогулки\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/events/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"events",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code should be 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response should return an empty list\", function () {",
+											"    var responseJson = pm.response.json();",
+											"    pm.expect(responseJson).to.be.an(\"array\").that.is.empty;",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/admin/events?users=1&states=PENDING&categories=3&rangeStart=2020-01-01 00:00:00&rangeEnd=2026-01-01 00:00:00",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"events"
+									],
+									"query": [
+										{
+											"key": "users",
+											"value": "1"
+										},
+										{
+											"key": "states",
+											"value": "PENDING"
+										},
+										{
+											"key": "categories",
+											"value": "3"
+										},
+										{
+											"key": "rangeStart",
+											"value": "2020-01-01 00:00:00"
+										},
+										{
+											"key": "rangeEnd",
+											"value": "2026-01-01 00:00:00"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events bad request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Error response contains correct structure\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.status).to.eql(\"BAD_REQUEST\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/admin/events?users=1&states=qwer&categories=7&rangeStart=2020-01-01 00:00:00&rangeEnd=2026-01-01 00:00:00",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"events"
+									],
+									"query": [
+										{
+											"key": "users",
+											"value": "1"
+										},
+										{
+											"key": "states",
+											"value": "qwer"
+										},
+										{
+											"key": "categories",
+											"value": "7"
+										},
+										{
+											"key": "rangeStart",
+											"value": "2020-01-01 00:00:00"
+										},
+										{
+											"key": "rangeEnd",
+											"value": "2026-01-01 00:00:00"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user-requests",
+					"item": [
+						{
+							"name": "save request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Запрос успешно создан\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"id\");",
+											"    pm.expect(response).to.have.property(\"created\");",
+											"    pm.expect(response).to.have.property(\"event\", 1);",
+											"    pm.expect(response).to.have.property(\"requester\", 3);",
+											"    pm.expect(response).to.have.property(\"status\", \"CONFIRMED\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/3/requests?eventId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"requests"
+									],
+									"query": [
+										{
+											"key": "eventId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save duplicate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Ошибка при повторном запросе\", function () {",
+											"    pm.response.to.have.status(409);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.status).eql(\"CONFLICT\");",
+											"    pm.expect(response.reason).eql(\"For the requested operation the conditions are not met.\");",
+											"    pm.expect(response.message).to.include(\"already exists\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/3/requests?eventId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"requests"
+									],
+									"query": [
+										{
+											"key": "eventId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "request by owner",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Инициатор события не может подать запрос\", function () {",
+											"    pm.response.to.have.status(409);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.status).eql(\"CONFLICT\");",
+											"    pm.expect(response.reason).eql(\"For the requested operation the conditions are not met.\");",
+											"    pm.expect(response.message).to.include(\"cannot request participation in their own event.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/1/requests?eventId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"requests"
+									],
+									"query": [
+										{
+											"key": "eventId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "request to unpublished event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Нельзя участвовать в неопубликованном событии\", function () {",
+											"    pm.response.to.have.status(409);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.status).eql(\"CONFLICT\");",
+											"    pm.expect(response.reason).eql(\"For the requested operation the conditions are not met.\");",
+											"    pm.expect(response.message).to.include(\"Cannot participate in an unpublished event.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/3/requests?eventId=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"requests"
+									],
+									"query": [
+										{
+											"key": "eventId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Запросы на участие успешно получены\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.be.an('array');",
+											"    pm.expect(response.length).to.be.above(0);",
+											"    pm.expect(response[0]).to.have.property(\"id\");",
+											"    pm.expect(response[0]).to.have.property(\"created\");",
+											"    pm.expect(response[0]).to.have.property(\"event\");",
+											"    pm.expect(response[0]).to.have.property(\"requester\");",
+											"    pm.expect(response[0]).to.have.property(\"status\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/3/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get empty request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Нет заявок для пользователя\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.be.an('array');",
+											"    pm.expect(response.length).to.equal(0);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/1/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "incorrect request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Запрос составлен некорректно\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"status\", \"BAD_REQUEST\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Failed to convert value of type\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/eq/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"eq",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Пользователь не найден\", function () {",
+											"    pm.response.to.have.status(404);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"status\", \"NOT_FOUND\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"The required object was not found.\");",
+											"    pm.expect(response.message).to.include(\"User with id=999 was not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/999/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"999",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cancel request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Запрос успешно отменен\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"id\", 1);",
+											"    pm.expect(response).to.have.property(\"status\", \"PENDING\");",
+											"    pm.expect(response).to.have.property(\"event\");",
+											"    pm.expect(response).to.have.property(\"requester\", 3);",
+											"    pm.expect(response).to.have.property(\"created\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/3/requests/1/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"requests",
+										"1",
+										"cancel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cancel not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Запрос не найден\", function () {",
+											"    pm.response.to.have.status(404);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"status\", \"NOT_FOUND\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"The required object was not found.\");",
+											"    pm.expect(response.message).to.include(\"Request with id=999 was not found\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/1/requests/999/cancel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"requests",
+										"999",
+										"cancel"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "admin-compilations",
+					"item": [
+						{
+							"name": "create compilation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Подборка успешно добавлена\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"id\");",
+											"    pm.expect(response).to.have.property(\"title\", \"Летние концерты\");",
+											"    pm.expect(response).to.have.property(\"pinned\", false);",
+											"    pm.expect(response).to.have.property(\"events\").that.is.an(\"array\").with.lengthOf(2);",
+											"    pm.expect(response.events[0]).to.have.property(\"id\");",
+											"    pm.expect(response.events[0]).to.have.property(\"title\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"events\": [1, 2, 3],\n  \"pinned\": false,\n  \"title\": \"Летние концерты\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/compilations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"compilations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create duplicate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Нарушение целостности данных - подборка с таким названием уже существует\", function () {",
+											"    pm.response.to.have.status(409);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.status).eql(\"CONFLICT\");",
+											"    pm.expect(response.reason).eql(\"For the requested operation the conditions are not met.\");",
+											"    pm.expect(response.message).to.include(\"already exists\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"events\": [1, 2, 3],\n  \"pinned\": false,\n  \"title\": \"Летние концерты\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/compilations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"compilations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "incorrect request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный запрос - поле title не заполнено\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.status).eql(\"BAD_REQUEST\");",
+											"    pm.expect(response.reason).eql(\"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Validation failed\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"events\": [1, 2],\n  \"pinned\": true,\n  \"title\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/compilations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"compilations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update compilations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Подборка успешно обновлена\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"id\", 1);",
+											"    pm.expect(response).to.have.property(\"title\", \"Обновленная подборка\");",
+											"    pm.expect(response).to.have.property(\"pinned\", true);",
+											"    pm.expect(response.events).to.be.an(\"array\").with.lengthOf(2);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"events\": [1, 2],\n  \"pinned\": true,\n  \"title\": \"Обновленная подборка\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/compilations/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"compilations",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Подборка не найдена\", function () {",
+											"    pm.response.to.have.status(404);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.status).eql(\"NOT_FOUND\");",
+											"    pm.expect(response.reason).eql(\"The required object was not found.\");",
+											"    pm.expect(response.message).to.include(\"Compilation with id=999 was not found\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"events\": [1, 2],\n  \"pinned\": true,\n  \"title\": \"Обновленная подборка\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/compilations/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"compilations",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delelte compilations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Подборка успешно удалена\", function () {",
+											"    pm.response.to.have.status(204);",
+											"    pm.response.to.not.have.body();",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/admin/compilations/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"compilations",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Подборка не найдена\", function () {",
+											"    pm.response.to.have.status(404);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response.status).eql(\"NOT_FOUND\");",
+											"    pm.expect(response.reason).eql(\"The required object was not found.\");",
+											"    pm.expect(response.message).to.include(\"Compilation with id=999 was not found\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/admin/compilations/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"compilations",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create compilation Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Подборка успешно добавлена\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"id\");",
+											"    pm.expect(response).to.have.property(\"title\", \"Летние концерты\");",
+											"    pm.expect(response).to.have.property(\"pinned\", false);",
+											"    pm.expect(response).to.have.property(\"events\").that.is.an(\"array\").with.lengthOf(2);",
+											"    pm.expect(response.events[0]).to.have.property(\"id\");",
+											"    pm.expect(response.events[0]).to.have.property(\"title\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"events\": [1, 2, 3],\n  \"pinned\": false,\n  \"title\": \"Летние концерты\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/compilations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"compilations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user-requests",
+					"item": [
+						{
+							"name": "find requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Запросы успешно получены\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.be.an(\"array\");",
+											"    if (response.length > 0) {",
+											"        response.forEach(req => {",
+											"            pm.expect(req).to.have.property(\"id\").that.is.a(\"number\");",
+											"            pm.expect(req).to.have.property(\"event\", 1);",
+											"            pm.expect(req).to.have.property(\"requester\").that.is.a(\"number\");",
+											"            pm.expect(req).to.have.property(\"status\").that.is.oneOf([\"PENDING\", \"CONFIRMED\", \"REJECTED\"]);",
+											"            pm.expect(req).to.have.property(\"created\").that.is.a(\"string\");",
+											"        });",
+											"    } else {",
+											"        pm.test(\"Список запросов пуст\", function () {",
+											"            pm.expect(response.length).to.equal(0);",
+											"        });",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/3/events/1/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"events",
+										"1",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "incorrect request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный запрос\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"status\", \"BAD_REQUEST\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Failed to convert value\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/abc/events/5/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"abc",
+										"events",
+										"5",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Событие не найдено\", function () {",
+											"    pm.response.to.have.status(404);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"status\", \"NOT_FOUND\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"The required object was not found.\");",
+											"    pm.expect(response.message).to.include(\"Event with id=9999 not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/9999/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"9999",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save event Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Response contains event details\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property(\"id\");",
+											"    pm.expect(jsonData.title).to.eql(\"Kayaking\");",
+											"    pm.expect(jsonData.location.lat).to.eql(55.754167);",
+											"    pm.expect(jsonData.location.lon).to.eql(37.62);",
+											"    pm.expect(new Date(jsonData.eventDate).getTime()).to.be.greaterThan(new Date().getTime());",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Kayaking is like flying.\",\n  \"category\": 2,\n  \"description\": \"Kayaking is like flying. On calm water — it's floating. On rough, turbulent water — performing aerobatic maneuvers. Both give a sense of renewal, spectacular emotions, and vivid impressions.\",\n  \"eventDate\": \"2024-12-31 15:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 10,\n  \"requestModeration\": true,\n  \"title\": \"Kayaking\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "publish event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code should be 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response body should contain updated event information\", function () {",
+											"    var responseJson = pm.response.json();",
+											"    pm.expect(responseJson.title).to.eql(\"Kayaking\");",
+											"    pm.expect(responseJson.annotation).to.eql(\"Kayaking is like flying.\");",
+											"    pm.expect(responseJson.state).to.eql(\"PUBLISHED\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annotation\": \"Kayaking is like flying.\",\n  \"category\": 2,\n  \"description\": \"Kayaking is like flying. On calm water — it's floating. On rough, turbulent water — performing aerobatic maneuvers. Both give a sense of renewal, spectacular emotions, and vivid impressions.\",\n  \"eventDate\": \"2024-12-31 15:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 10,\n  \"requestModeration\": true,\n  \"stateAction\": \"PUBLISH_EVENT\",\n  \"title\": \"Kayaking\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/events/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"events",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "save request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Запрос успешно создан\", function () {",
+											"    pm.response.to.have.status(201);",
+											"    const response = pm.response.json();",
+											"    pm.expect(response).to.have.property(\"id\");",
+											"    pm.expect(response).to.have.property(\"created\");",
+											"    pm.expect(response).to.have.property(\"event\", 3);",
+											"    pm.expect(response).to.have.property(\"requester\", 3);",
+											"    pm.expect(response).to.have.property(\"status\", \"PENDING\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/3/requests?eventId=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"requests"
+									],
+									"query": [
+										{
+											"key": "eventId",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус заявок успешно изменён\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"confirmedRequests\").that.is.an(\"array\");",
+											"    pm.expect(response).to.have.property(\"rejectedRequests\").that.is.an(\"array\");",
+											"",
+											"    response.confirmedRequests.forEach(req => {",
+											"        pm.expect(req).to.have.property(\"id\").that.is.a(\"number\");",
+											"        pm.expect(req).to.have.property(\"status\", \"CONFIRMED\");",
+											"    });",
+											"",
+											"    response.rejectedRequests.forEach(req => {",
+											"        pm.expect(req).to.have.property(\"id\").that.is.a(\"number\");",
+											"        pm.expect(req).to.have.property(\"status\", \"REJECTED\");",
+											"    });",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"requestIds\": [1],\n  \"status\": \"CONFIRMED\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/3/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"3",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "incorrect request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный запрос\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response.status).eql(\"BAD_REQUEST\");",
+											"    pm.expect(response.reason).eql(\"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Failed to convert value\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"requestIds\": [1, 2],\n  \"status\": \"CONFIRMED\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/q/events/5/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"q",
+										"events",
+										"5",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "request not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Событие не найдено\", function () {",
+											"    pm.response.to.have.status(404);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"NOT_FOUND\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"The required object was not found.\");",
+											"    pm.expect(response.message).to.include(\"Event with id=999 not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"requestIds\": [1, 2],\n  \"status\": \"CONFIRMED\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/999/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"999",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "request not accessible",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Попытка изменения неподходящих заявок\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response.status).eql(\"BAD_REQUEST\");",
+											"    pm.expect(response.reason).eql(\"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"No moderation required\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"requestIds\": [3, 4],\n  \"status\": \"CONFIRMED\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/1/events/2/requests",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"events",
+										"2",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "public-compilations",
+					"item": [
+						{
+							"name": "get compilations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/compilations?pinned=false&from=0&size=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"compilations"
+									],
+									"query": [
+										{
+											"key": "pinned",
+											"value": "false"
+										},
+										{
+											"key": "from",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bad request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный запрос\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"BAD_REQUEST\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Failed to convert value\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/compilations?pinned=maybe&from=0&size=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"compilations"
+									],
+									"query": [
+										{
+											"key": "pinned",
+											"value": "maybe"
+										},
+										{
+											"key": "from",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Успешное получение подборки по ID\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"id\").that.is.a(\"number\");",
+											"    pm.expect(response).to.have.property(\"title\").that.is.a(\"string\");",
+											"    pm.expect(response).to.have.property(\"pinned\").that.is.a(\"boolean\");",
+											"    pm.expect(response).to.have.property(\"events\").that.is.an(\"array\");",
+											"",
+											"    response.events.forEach(event => {",
+											"        pm.expect(event).to.have.property(\"id\").that.is.a(\"number\");",
+											"        pm.expect(event).to.have.property(\"annotation\").that.is.a(\"string\");",
+											"        pm.expect(event).to.have.property(\"category\").that.is.an(\"object\");",
+											"        pm.expect(event.category).to.have.property(\"id\").that.is.a(\"number\");",
+											"        pm.expect(event.category).to.have.property(\"name\").that.is.a(\"string\");",
+											"        pm.expect(event).to.have.property(\"confirmedRequests\").that.is.a(\"number\");",
+											"        pm.expect(event).to.have.property(\"eventDate\").that.is.a(\"string\");",
+											"        pm.expect(event).to.have.property(\"initiator\").that.is.an(\"object\");",
+											"        pm.expect(event.initiator).to.have.property(\"id\").that.is.a(\"number\");",
+											"        pm.expect(event.initiator).to.have.property(\"name\").that.is.a(\"string\");",
+											"        pm.expect(event).to.have.property(\"paid\").that.is.a(\"boolean\");",
+											"        pm.expect(event).to.have.property(\"title\").that.is.a(\"string\");",
+											"        pm.expect(event).to.have.property(\"views\").that.is.a(\"number\");",
+											"    });",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/compilations/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"compilations",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Подборка не найдена\", function () {",
+											"    pm.response.to.have.status(404);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"NOT_FOUND\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"The required object was not found.\");",
+											"    pm.expect(response.message).to.include(\"Compilation with id=999 was not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/compilations/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"compilations",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bad request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный запрос\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"BAD_REQUEST\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Failed to convert value\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/compilations/abc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"compilations",
+										"abc"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "public-categories",
+					"item": [
+						{
+							"name": "find categories",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Успешное получение категорий\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.be.an(\"array\");",
+											"    response.forEach(category => {",
+											"        pm.expect(category).to.have.property(\"id\").that.is.a(\"number\");",
+											"        pm.expect(category).to.have.property(\"name\").that.is.a(\"string\");",
+											"    });",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/categories?from=0&size=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"categories"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "find empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Пустой список категорий\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.be.an(\"array\").that.is.empty;",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/categories?from=100&size=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"categories"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "100"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bad request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный параметр запроса\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"BAD_REQUEST\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Failed to convert value\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/categories?from=abc&size=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"categories"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "abc"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get default",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Параметры 'from' и 'size' по умолчанию\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.be.an(\"array\");",
+											"    response.forEach(category => {",
+											"        pm.expect(category).to.have.property(\"id\").that.is.a(\"number\");",
+											"        pm.expect(category).to.have.property(\"name\").that.is.a(\"string\");",
+											"    });",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Успешное получение категории\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.be.an(\"object\");",
+											"    pm.expect(response).to.have.property(\"id\").that.is.a(\"number\");",
+											"    pm.expect(response).to.have.property(\"name\").that.is.a(\"string\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/categories/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"categories",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Категория не найдена\", function () {",
+											"    pm.response.to.have.status(404);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"NOT_FOUND\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"The required object was not found.\");",
+											"    pm.expect(response.message).to.include(\"Category with id=\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/categories/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"categories",
+										"999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "bad request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный параметр 'catId'\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"BAD_REQUEST\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Failed to convert value\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/categories/abc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"categories",
+										"abc"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "public-events",
+					"item": [
+						{
+							"name": "get events",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"События найдены\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.be.an(\"array\");",
+											"    pm.expect(response.length).to.be.greaterThan(0);",
+											"",
+											"    response.forEach(event => {",
+											"        pm.expect(event).to.have.property(\"id\").that.is.a(\"number\");",
+											"        pm.expect(event).to.have.property(\"annotation\").that.is.a(\"string\");",
+											"        pm.expect(event).to.have.property(\"confirmedRequests\").that.is.a(\"number\");",
+											"        pm.expect(event).to.have.property(\"eventDate\").that.is.a(\"string\");",
+											"        pm.expect(event).to.have.property(\"views\").that.is.a(\"number\");",
+											"    });",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/events?text=is&categories=2&paid=true&rangeStart=2024-01-01T00:00:00&rangeEnd=2024-12-31T23:59:59&onlyAvailable=true&sort=EVENT_DATE&from=0&size=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"events"
+									],
+									"query": [
+										{
+											"key": "text",
+											"value": "is"
+										},
+										{
+											"key": "categories",
+											"value": "2"
+										},
+										{
+											"key": "paid",
+											"value": "true"
+										},
+										{
+											"key": "rangeStart",
+											"value": "2024-01-01T00:00:00"
+										},
+										{
+											"key": "rangeEnd",
+											"value": "2024-12-31T23:59:59"
+										},
+										{
+											"key": "onlyAvailable",
+											"value": "true"
+										},
+										{
+											"key": "sort",
+											"value": "EVENT_DATE"
+										},
+										{
+											"key": "from",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "incorrect date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректная дата в запросе\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"BAD_REQUEST\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Invalid date format\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/events?paid=true&sort=VIEWS&text=show&categories=2&rangeStart=invalid-date&rangeEnd=2024-12-31T23:59:59",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"events"
+									],
+									"query": [
+										{
+											"key": "paid",
+											"value": "true"
+										},
+										{
+											"key": "sort",
+											"value": "VIEWS"
+										},
+										{
+											"key": "text",
+											"value": "show"
+										},
+										{
+											"key": "categories",
+											"value": "2"
+										},
+										{
+											"key": "rangeStart",
+											"value": "invalid-date"
+										},
+										{
+											"key": "rangeEnd",
+											"value": "2024-12-31T23:59:59"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get event",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Событие найдено\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"id\").that.is.a(\"number\");",
+											"    pm.expect(response).to.have.property(\"annotation\").that.is.a(\"string\");",
+											"    pm.expect(response).to.have.property(\"confirmedRequests\").that.is.a(\"number\");",
+											"    pm.expect(response).to.have.property(\"eventDate\").that.is.a(\"string\");",
+											"    pm.expect(response).to.have.property(\"views\").that.is.a(\"number\");",
+											"    pm.expect(response).to.have.property(\"state\").that.equals(\"PUBLISHED\");",
+											"    pm.expect(response).to.have.property(\"paid\").that.is.a(\"boolean\");",
+											"    pm.expect(response).to.have.property(\"title\").that.is.a(\"string\");",
+											"    pm.expect(response).to.have.property(\"location\").that.is.an(\"object\");",
+											"    pm.expect(response.location).to.have.property(\"lat\").that.is.a(\"number\");",
+											"    pm.expect(response.location).to.have.property(\"lon\").that.is.a(\"number\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Событие не найдено\", function () {",
+											"    pm.response.to.have.status(404);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"NOT_FOUND\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"The required object was not found.\");",
+											"    pm.expect(response.message).to.include(\"Event with id=9999 not found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/events/9999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"events",
+										"9999"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get bad request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Некорректный ID события\", function () {",
+											"    pm.response.to.have.status(400);",
+											"    const response = pm.response.json();",
+											"",
+											"    pm.expect(response).to.have.property(\"status\", \"BAD_REQUEST\");",
+											"    pm.expect(response).to.have.property(\"reason\", \"Incorrectly made request.\");",
+											"    pm.expect(response.message).to.include(\"Failed to convert value of type\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/events/ad",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"events",
+										"ad"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

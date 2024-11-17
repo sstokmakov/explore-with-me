@@ -21,11 +21,10 @@ public class StatsController {
 
     @PostMapping("/hit")
     @ResponseStatus(HttpStatus.CREATED)
-    public HitDto save(@RequestBody HitDto hitDto) {
+    public void save(@RequestBody HitDto hitDto) {
         log.info("save hit: {}", hitDto);
         HitDto savedHit = statsService.save(hitDto);
         log.info("Hit saved successfully: {}", savedHit);
-        return savedHit;
     }
 
     @GetMapping("/stats")
