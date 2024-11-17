@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    private Integer id;
+    private Long id;
     @Email
     @NotBlank
     private String email;

@@ -7,15 +7,11 @@ import lombok.Setter;
 
 import java.util.List;
 
-enum RequestStatus {
-    CONFIRMED, REJECTED
-}
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventRequestStatusUpdateRequest {
-    private List<Integer> requestIds;
+    private List<Long> requestIds;
     private RequestStatus status;
 }

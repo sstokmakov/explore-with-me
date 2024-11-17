@@ -2,7 +2,7 @@ package ru.tokmakov.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.tokmakov.dto.event.ApplicationStatus;
+import ru.tokmakov.dto.event.EventState;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
@@ -25,7 +25,7 @@ public class Event {
     @ManyToOne
     private Category category;
 
-    private Integer confirmedRequests;
+    private int confirmedRequests;
 
     private LocalDateTime createdOn;
 
@@ -53,7 +53,8 @@ public class Event {
 
     private Boolean requestModeration;
 
-    private ApplicationStatus state;
+    @Enumerated(EnumType.STRING)
+    private EventState state;
 
     @NotNull
     private String title;

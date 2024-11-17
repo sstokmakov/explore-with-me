@@ -4,8 +4,14 @@ import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+import java.util.Set;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "compilations")
 public class Compilation {
@@ -19,7 +25,7 @@ public class Compilation {
             joinColumns = @JoinColumn(name = "compilation_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id")
     )
-    private List<Event> events;
+    private Set<Event> events;
 
     @NotNull
     private Boolean pinned;

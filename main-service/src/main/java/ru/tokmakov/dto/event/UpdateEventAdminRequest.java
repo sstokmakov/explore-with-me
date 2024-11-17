@@ -8,10 +8,6 @@ import lombok.Setter;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-enum AdminStateAction {
-    PUBLISH_EVENT, REJECT_EVENT
-}
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,7 +18,7 @@ public class UpdateEventAdminRequest {
     private Integer category;
     @Size(min = 20, max = 7000)
     private String description;
-    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}")
+    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")
     private String eventDate;
     private Location location;
     private Boolean paid;

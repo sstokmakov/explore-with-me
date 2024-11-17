@@ -40,7 +40,7 @@ public class EventFullDto {
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")
     private String publishedOn;
     private Boolean requestModeration;
-    private ApplicationStatus state;
+    private EventState state;
     @NotNull
     private String title;
     private Integer views;

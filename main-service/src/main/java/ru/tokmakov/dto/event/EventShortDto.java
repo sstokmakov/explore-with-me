@@ -24,7 +24,7 @@ public class EventShortDto {
     @NotBlank
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")
     private String eventDate;
-    private Integer id;
+    private Long id;
     private UserShortDto initiator;
     @NotNull
     private Boolean paid;

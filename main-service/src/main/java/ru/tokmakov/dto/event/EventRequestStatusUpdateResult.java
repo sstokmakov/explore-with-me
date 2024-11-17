@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.tokmakov.dto.participation.ParticipationRequestDto;
 
 import java.util.List;
 
