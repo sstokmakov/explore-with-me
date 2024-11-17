@@ -18,7 +18,7 @@ public class GuestCompilationsController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CompilationDto> findCompilations(@RequestParam boolean pinned,
+    public List<CompilationDto> findCompilations(@RequestParam Boolean pinned,
                                                  @RequestParam(required = false, defaultValue = "0") int from,
                                                  @RequestParam(required = false, defaultValue = "10") int size) {
         return guestCompilationsService.findCompilations(pinned, from, size);

@@ -1,4 +1,4 @@
-package ru.tokmakov.exception;
+package ru.tokmakov.exception.event;
 
 public class EventDateNotValidException extends RuntimeException {
   public EventDateNotValidException(String message) {

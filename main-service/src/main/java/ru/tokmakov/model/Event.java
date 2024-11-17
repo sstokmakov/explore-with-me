@@ -47,7 +47,7 @@ public class Event {
     @NotNull
     private Boolean paid;
 
-    private Integer participantLimit;
+    private int participantLimit;
 
     private LocalDateTime publishedOn;
 
@@ -59,5 +59,5 @@ public class Event {
     @NotNull
     private String title;
 
-    private Integer views;
+    private int views;
 }

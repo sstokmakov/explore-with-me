@@ -1,5 +1,6 @@
 package ru.tokmakov.controller.guest;
 
+import ru.tokmakov.dto.event.EventFullDto;
 import ru.tokmakov.dto.event.SortType;
 import ru.tokmakov.service.guest.GuestEventsService;
 import lombok.AllArgsConstructor;
@@ -19,21 +20,21 @@ public class GuestEventsController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public EventShortDto findEvents(@RequestParam String text,
-                                    @RequestParam List<Integer> categories,
-                                    @RequestParam Boolean paid,
-                                    @RequestParam String rangeStart,
-                                    @RequestParam String rangeEnd,
-                                    @RequestParam Boolean onlyAvailable,
-                                    @RequestParam SortType sort,
-                                    @RequestParam(required = false, defaultValue = "0") int from,
-                                    @RequestParam(required = false, defaultValue = "10") int size) {
+    public List<EventShortDto> findEvents(@RequestParam String text,
+                                          @RequestParam List<Integer> categories,
+                                          @RequestParam Boolean paid,
+                                          @RequestParam(required = false) String rangeStart,
+                                          @RequestParam(required = false) String rangeEnd,
+                                          @RequestParam(required = false, defaultValue = "false") Boolean onlyAvailable,
+                                          @RequestParam SortType sort,
+                                          @RequestParam(required = false, defaultValue = "0") int from,
+                                          @RequestParam(required = false, defaultValue = "10") int size) {
         return guestEventsService.findEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
     }
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public EventShortDto findEventById(@PathVariable long id) {
+    public EventFullDto findEventById(@PathVariable long id) {
         return guestEventsService.findEventById(id);
     }
 }

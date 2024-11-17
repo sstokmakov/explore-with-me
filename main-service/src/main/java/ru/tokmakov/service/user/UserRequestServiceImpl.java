@@ -64,7 +64,7 @@ public class UserRequestServiceImpl implements UserRequestService {
             throw new ConflictException("Request already exists for this user and event.");
         }
 
-        if (event.getParticipantLimit() != null
+        if (event.getParticipantLimit() != 0
             && event.getConfirmedRequests() >= event.getParticipantLimit()) {
             throw new ConflictException("Event participation limit has been reached.");
         }

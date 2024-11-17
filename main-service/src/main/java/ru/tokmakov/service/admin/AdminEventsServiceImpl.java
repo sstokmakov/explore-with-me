@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import ru.tokmakov.exception.event.EventDateException;
 import ru.tokmakov.exception.event.EventStateException;
 import ru.tokmakov.model.Event;
-import ru.tokmakov.repository.CategoriesRepository;
+import ru.tokmakov.repository.CategoryRepository;
 import ru.tokmakov.repository.EventRepository;
 
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AdminEventsServiceImpl implements AdminEventsService {
     private final EventRepository eventRepository;
-    private final CategoriesRepository adminCategoriesRepository;
+    private final CategoryRepository adminCategoryRepository;
 
 
     @Override
@@ -81,7 +81,7 @@ public class AdminEventsServiceImpl implements AdminEventsService {
         }
 
         event.setAnnotation(eventShortDto.getAnnotation());
-        event.setCategory(adminCategoriesRepository.findById(eventShortDto.getCategory()).orElseThrow(() -> {
+        event.setCategory(adminCategoryRepository.findById(eventShortDto.getCategory()).orElseThrow(() -> {
             log.error("Category with ID {} not found", eventShortDto.getCategory());
             return new NotFoundException("category with id " + eventShortDto.getCategory() + " not found");
         }));

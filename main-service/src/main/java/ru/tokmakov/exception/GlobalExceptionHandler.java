@@ -3,6 +3,7 @@ package ru.tokmakov.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,6 +14,7 @@ import ru.tokmakov.exception.category.CategoryNotEmptyException;
 import ru.tokmakov.exception.compilation.TitleAlreadyExistsException;
 import ru.tokmakov.exception.event.ConflictException;
 import ru.tokmakov.exception.event.EventDateException;
+import ru.tokmakov.exception.event.EventDateNotValidException;
 import ru.tokmakov.exception.event.EventStateException;
 import ru.tokmakov.exception.user.EmailAlreadyExistsException;
 
@@ -23,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class, BadRequestException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class, BadRequestException.class, MissingServletRequestParameterException.class})
     public ErrorResponse handleInvalidArgument(Exception e) {
 
         return new ErrorResponse(
@@ -61,22 +63,11 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler({EventStateException.class, EventDateException.class, CategoryNotEmptyException.class, ConflictException.class, TitleAlreadyExistsException.class})
+    @ExceptionHandler({EventStateException.class, EventDateException.class, CategoryNotEmptyException.class, ConflictException.class, TitleAlreadyExistsException.class, ForbiddenAccessException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleConflictException(RuntimeException e) {
         return new ErrorResponse(
                 "CONFLICT",
-                "For the requested operation the conditions are not met.",
-                e.getMessage(),
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-        );
-    }
-
-    @ExceptionHandler({ForbiddenAccessException.class})
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleForbiddenException(RuntimeException e) {
-        return new ErrorResponse(
-                "FORBIDDEN",
                 "For the requested operation the conditions are not met.",
                 e.getMessage(),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))

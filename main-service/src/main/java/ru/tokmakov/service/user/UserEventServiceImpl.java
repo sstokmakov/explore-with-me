@@ -11,7 +11,7 @@ import ru.tokmakov.dto.participation.ParticipationRequestMapper;
 import ru.tokmakov.exception.BadRequestException;
 import ru.tokmakov.exception.NotFoundException;
 import ru.tokmakov.exception.event.ConflictException;
-import ru.tokmakov.repository.CategoriesRepository;
+import ru.tokmakov.repository.CategoryRepository;
 import ru.tokmakov.repository.UserRepository;
 import ru.tokmakov.dto.event.*;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import ru.tokmakov.model.Category;
 import ru.tokmakov.model.Event;
 import ru.tokmakov.model.ParticipationRequest;
 import ru.tokmakov.model.User;
-import ru.tokmakov.exception.EventDateNotValidException;
+import ru.tokmakov.exception.event.EventDateNotValidException;
 import ru.tokmakov.repository.EventRepository;
 import ru.tokmakov.repository.RequestRepository;
 
@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserEventServiceImpl implements UserEventService {
     private final UserRepository userRepository;
-    private final CategoriesRepository categoriesRepository;
+    private final CategoryRepository categoryRepository;
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
 
@@ -77,7 +77,7 @@ public class UserEventServiceImpl implements UserEventService {
 
         log.debug("Found user: {}", user);
 
-        Category category = categoriesRepository.findById(newEventDto.getCategory()).orElseThrow(() -> {
+        Category category = categoryRepository.findById(newEventDto.getCategory()).orElseThrow(() -> {
             log.error("Category with id {} not found", newEventDto.getCategory());
             return new NotFoundException("Category with id " + newEventDto.getCategory() + " not found");
         });
@@ -152,7 +152,7 @@ public class UserEventServiceImpl implements UserEventService {
 
         log.info("Updating event details for event ID: {}", eventId);
         event.setAnnotation(updateEventUserRequest.getAnnotation());
-        event.setCategory(categoriesRepository.findById(updateEventUserRequest.getCategory())
+        event.setCategory(categoryRepository.findById(updateEventUserRequest.getCategory())
                 .orElseThrow(() -> {
                     log.error("Category with id={} not found", updateEventUserRequest.getCategory());
                     return new NotFoundException("Category with id=" + updateEventUserRequest.getCategory() + " not found");
