@@ -44,7 +44,6 @@ public class Event {
     @NotNull
     private Double lon;
 
-    @NotNull
     private Boolean paid;
 
     private int participantLimit;

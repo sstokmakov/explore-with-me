@@ -1,5 +1,5 @@
 package ru.tokmakov.dto.event;
 
 public enum RequestStatus {
-    CONFIRMED, REJECTED, PENDING
+    CONFIRMED, REJECTED, PENDING, CANCELED
 }

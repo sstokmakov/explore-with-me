@@ -19,20 +19,35 @@ public class UserRequestController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ParticipationRequestDto> findUserParticipationRequests(@PathVariable long userId) {
-        return userRequestService.findUserParticipationRequests(userId);
+        log.info("GET /users/{}/requests - Fetching participation requests for userId={}", userId, userId);
+
+        List<ParticipationRequestDto> requests = userRequestService.findUserParticipationRequests(userId);
+
+        log.info("GET /users/{}/requests - Found {} participation requests", userId, requests.size());
+        return requests;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ParticipationRequestDto saveParticipationRequest(@PathVariable long userId,
                                                             @RequestParam long eventId) {
-        return userRequestService.saveParticipationRequest(userId, eventId);
+        log.info("POST /users/{}/requests - Creating participation request for userId={}, eventId={}", userId, userId, eventId);
+
+        ParticipationRequestDto request = userRequestService.saveParticipationRequest(userId, eventId);
+
+        log.info("POST /users/{}/requests - Participation request created: {}", userId, request);
+        return request;
     }
 
     @PatchMapping("/{requestId}/cancel")
     @ResponseStatus(HttpStatus.OK)
     public ParticipationRequestDto cancelParticipationRequest(@PathVariable long userId,
                                                               @PathVariable long requestId) {
-        return userRequestService.cancelParticipationRequest(userId, requestId);
+        log.info("PATCH /users/{}/requests/{}/cancel - Cancelling participation request for userId={}, requestId={}", userId, requestId, userId, requestId);
+
+        ParticipationRequestDto cancelledRequest = userRequestService.cancelParticipationRequest(userId, requestId);
+
+        log.info("PATCH /users/{}/requests/{}/cancel - Participation request cancelled: {}", userId, requestId, cancelledRequest);
+        return cancelledRequest;
     }
 }

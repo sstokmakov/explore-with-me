@@ -7,14 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewCompilationDto {
-    private Set<Long> events;
+    private List<Long> events;
     private Boolean pinned;
     @NotBlank
     @Size(min = 1, max = 50)

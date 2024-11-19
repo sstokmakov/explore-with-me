@@ -17,11 +17,11 @@ CREATE TABLE IF NOT EXISTS compilations (
 
 CREATE TABLE IF NOT EXISTS events (
                         id BIGSERIAL PRIMARY KEY,
-                        annotation VARCHAR(255) NOT NULL,
+                        annotation VARCHAR(2000) NOT NULL,
                         category_id BIGINT NOT NULL REFERENCES categories(id),
                         confirmed_requests INTEGER,
                         created_on TIMESTAMP,
-                        description TEXT,
+                        description varchar(7000),
                         event_date TIMESTAMP NOT NULL,
                         initiator_id BIGSERIAL NOT NULL REFERENCES users(id),
                         lat DOUBLE PRECISION NOT NULL,

@@ -23,9 +23,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Boolean existsByCategoryId(Long categoryId);
 
     @Query("SELECT e FROM Event e " +
-           "WHERE (e.initiator.id IN :users) " +
-           "AND (e.state IN :states) " +
-           "AND (e.category.id IN :categories) " +
+           "WHERE (:users IS NULL OR e.initiator.id IN :users) " +
+           "AND (:states IS NULL OR e.state IN :states) " +
+           "AND (:categories IS NULL OR e.category.id IN :categories) " +
            "AND (e.eventDate >= :rangeStart) " +
            "AND (e.eventDate <= :rangeEnd)")
     List<Event> findByFilters(
@@ -36,20 +36,30 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             LocalDateTime rangeEnd,
             Pageable pageable);
 
+    @Query("SELECT e FROM Event e " +
+           "WHERE (:users IS NULL OR e.initiator.id IN :users) " +
+           "AND (:states IS NULL OR e.state IN :states) " +
+           "AND (:categories IS NULL OR e.category.id IN :categories) " +
+           "AND (e.eventDate >= :currentTimestamp)")
+    List<Event> findByFiltersWithoutDate(
+            Set<Long> users,
+            Set<EventState> states,
+            Set<Long> categories,
+            LocalDateTime currentTimestamp,
+            Pageable pageable);
+
     @Query("SELECT e FROM Event e WHERE (e.id IN :eventIds)")
-    Set<Event> findAllByIds(Set<Long> eventIds);
+    List<Event> findAllByIds(List<Long> eventIds);
 
     @Query("SELECT e FROM Event e " +
            "WHERE e.state = 'PUBLISHED' " +
-           "AND (e.annotation ILIKE CONCAT('%', :text, '%') " +
-           "OR (e.description ILIKE CONCAT('%', :text, '%'))) " +
-           "AND (e.category.id IN :categories) " +
-           "AND (e.paid = :paid) " +
+           "AND (:text IS NULL OR (e.annotation ILIKE :text OR e.description ILIKE :text)) " +
+           "AND (:categories IS NULL OR e.category.id IN :categories) " +
+           "AND (:paid IS NULL OR e.paid = :paid) " +
            "AND (e.eventDate >= :start) " +
            "AND (e.eventDate <= :end) " +
-           "AND ((:onlyAvailable = false) OR (e.participantLimit > e.confirmedRequests)) " +
-           "ORDER BY e.eventDate")
-    Page<Event> findEventsWithFiltersOrderByDate(
+           "AND (:onlyAvailable = false OR e.participantLimit = 0 OR e.participantLimit > e.confirmedRequests)")
+    Page<Event> findEventsWithFilters(
             @Param("text") String text,
             @Param("categories") List<Integer> categories,
             @Param("paid") Boolean paid,
@@ -61,22 +71,17 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query("SELECT e FROM Event e " +
            "WHERE e.state = 'PUBLISHED' " +
-           "AND (e.annotation ILIKE CONCAT('%', :text, '%') " +
-           "OR (e.description ILIKE CONCAT('%', :text, '%'))) " +
-           "AND (e.category.id IN :categories) " +
-           "AND (e.paid = :paid) " +
-           "AND (e.eventDate >= :start) " +
-           "AND (e.eventDate <= :end) " +
-           "AND ((:onlyAvailable = false) OR (e.participantLimit > e.confirmedRequests)) " +
-           "ORDER BY e.views")
-    Page<Event> findEventsWithFiltersOrderByViews(
+           "AND (:text IS NULL OR (e.annotation ILIKE :text OR e.description ILIKE :text)) " +
+           "AND (:categories IS NULL OR e.category.id IN :categories) " +
+           "AND (:paid IS NULL OR e.paid = :paid) " +
+           "AND (e.eventDate >= :currentTimestamp) " +
+           "AND (:onlyAvailable = false OR e.participantLimit = 0 OR e.participantLimit > e.confirmedRequests)")
+    Page<Event> findEventsWithFiltersWithoutDate(
             @Param("text") String text,
             @Param("categories") List<Integer> categories,
             @Param("paid") Boolean paid,
-            @Param("start") LocalDateTime start,
-            @Param("end") LocalDateTime end,
             @Param("onlyAvailable") Boolean onlyAvailable,
+            @Param("currentTimestamp") LocalDateTime currentTimestamp,
             Pageable pageable
     );
-
 }

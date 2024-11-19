@@ -13,8 +13,8 @@ public interface AdminEventsService {
                                   Set<Long> categories,
                                   String rangeStart,
                                   String rangeEnd,
-                                  int from,
-                                  int size);
+                                  Integer from,
+                                  Integer size);
 
     EventFullDto updateEvent(long eventId, UpdateEventAdminRequest eventShortDto);
 }

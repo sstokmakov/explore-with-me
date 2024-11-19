@@ -1,4 +1,4 @@
-package ru.tokmakov.exception.event;
+package ru.tokmakov.exception;
 
 public class ConflictException extends RuntimeException {
     public ConflictException(String message) {

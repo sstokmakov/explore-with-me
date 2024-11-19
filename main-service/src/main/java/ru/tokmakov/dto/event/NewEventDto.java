@@ -1,14 +1,7 @@
 package ru.tokmakov.dto.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 @Getter
 @Setter
@@ -28,10 +21,11 @@ public class NewEventDto {
     private String eventDate;
     @NotNull
     private Location location;
-    private Boolean paid;
-    private Integer participantLimit;
-    private Boolean requestModeration;
+    private Boolean paid = false;
+    @Min(0)
+    private Integer participantLimit = 0;
+    private Boolean requestModeration = true;
     @NotBlank
-    @Size(min = 2, max = 120)
+    @Size(min = 3, max = 120)
     private String title;
 }

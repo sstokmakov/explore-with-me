@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,7 +24,7 @@ public class Compilation {
             joinColumns = @JoinColumn(name = "compilation_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id")
     )
-    private Set<Event> events;
+    private List<Event> events;
 
     @NotNull
     private Boolean pinned;

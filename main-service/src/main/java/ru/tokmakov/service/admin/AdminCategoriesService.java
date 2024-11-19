@@ -6,7 +6,7 @@ import ru.tokmakov.dto.category.NewCategoryDto;
 public interface AdminCategoriesService {
     CategoryDto saveCategory(NewCategoryDto newCategoryDto);
 
-    void deleteCategory(long catId);
+    void deleteCategory(Long catId);
 
-    CategoryDto updateCategory(long catId, NewCategoryDto newCategoryDto);
+    CategoryDto updateCategory(Long catId, NewCategoryDto newCategoryDto);
 }

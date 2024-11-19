@@ -24,12 +24,17 @@ public class GuestCategoriesServiceImpl implements GuestCategoriesService {
     @Override
     @Transactional(readOnly = true)
     public List<CategoryDto> findCategories(int from, int size) {
+        log.info("Fetching categories with pagination - from: {}, size: {}", from, size);
+
         if (from < 0 || size <= 0) {
+            log.error("Invalid pagination parameters: from={}, size={}", from, size);
             throw new BadRequestException("Invalid pagination parameters: from=" + from + ", size=" + size);
         }
 
         PageRequest pageRequest = PageRequest.of(from / size, size);
         Page<Category> categoryPage = categoryRepository.findAll(pageRequest);
+
+        log.info("Found {} categories with pagination - from: {}, size: {}", categoryPage.getContent().size(), from, size);
 
         return categoryPage.stream()
                 .map(CategoryMapper::toDto)
@@ -39,8 +44,15 @@ public class GuestCategoriesServiceImpl implements GuestCategoriesService {
     @Override
     @Transactional(readOnly = true)
     public CategoryDto findCategoryById(int catId) {
+        log.info("Fetching category with id={}", catId);
+
         Category category = categoryRepository.findById(catId)
-                .orElseThrow(() -> new NotFoundException("Category with id=" + catId + " was not found"));
+                .orElseThrow(() -> {
+                    log.error("Category with id={} not found", catId);
+                    return new NotFoundException("Category with id=" + catId + " was not found");
+                });
+
+        log.info("Category with id={} found: {}", catId, category);
 
         return CategoryMapper.toDto(category);
     }

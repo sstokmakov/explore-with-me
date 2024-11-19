@@ -2,13 +2,14 @@ package ru.tokmakov.service.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import ru.tokmakov.exception.NotFoundException;
-import ru.tokmakov.exception.category.CategoryNameAlreadyExistsException;
 import ru.tokmakov.dto.category.CategoryDto;
 import ru.tokmakov.dto.category.CategoryMapper;
 import ru.tokmakov.dto.category.NewCategoryDto;
 import org.springframework.stereotype.Service;
-import ru.tokmakov.exception.category.CategoryNotEmptyException;
+import ru.tokmakov.exception.CategoryNotEmptyException;
+import ru.tokmakov.exception.ConflictException;
 import ru.tokmakov.model.Category;
 import ru.tokmakov.repository.CategoryRepository;
 import ru.tokmakov.repository.EventRepository;
@@ -21,12 +22,13 @@ public class AdminCategoriesServiceImpl implements AdminCategoriesService {
     private final EventRepository eventRepository;
 
     @Override
+    @Transactional
     public CategoryDto saveCategory(NewCategoryDto newCategoryDto) {
         log.info("Attempting to save new category: {}", newCategoryDto);
 
         if (categoryRepository.existsByName(newCategoryDto.getName())) {
             log.error("Category with name {} already exists", newCategoryDto.getName());
-            throw new CategoryNameAlreadyExistsException("Category with name " + newCategoryDto.getName() + " already exists");
+            throw new ConflictException("Category with name " + newCategoryDto.getName() + " already exists");
         }
 
         Category category = CategoryMapper.newCategoryDtoToCategory(newCategoryDto);
@@ -39,7 +41,8 @@ public class AdminCategoriesServiceImpl implements AdminCategoriesService {
     }
 
     @Override
-    public void deleteCategory(long catId) {
+    @Transactional
+    public void deleteCategory(Long catId) {
         log.info("Attempting to delete category with ID: {}", catId);
 
         Category category = categoryRepository.findById(catId)
@@ -57,22 +60,20 @@ public class AdminCategoriesServiceImpl implements AdminCategoriesService {
     }
 
     @Override
-    public CategoryDto updateCategory(long catId, NewCategoryDto newCategoryDto) {
+    @Transactional
+    public CategoryDto updateCategory(Long catId, NewCategoryDto newCategoryDto) {
         log.info("Starting update for category with ID: {}. New data: {}", catId, newCategoryDto);
 
-        Category category;
-        try {
-            category = categoryRepository.findById(catId)
-                    .orElseThrow(() -> new NotFoundException("Category with ID " + catId + " not found"));
-        } catch (NotFoundException e) {
-            log.error("Category with ID {} not found. Update failed.", catId, e);
-            throw e;
-        }
+        Category category = categoryRepository.findById(catId)
+                .orElseThrow(() -> {
+                    log.error("Category with ID {} not found. Update failed.", catId);
+                    return new NotFoundException("Category with ID " + catId + " not found");
+                });
 
         if (categoryRepository.existsByName(newCategoryDto.getName())
             && !category.getName().equals(newCategoryDto.getName())) {
             log.warn("Category name '{}' already exists. Update for ID {} cannot proceed.", newCategoryDto.getName(), catId);
-            throw new CategoryNameAlreadyExistsException("Category with name '" + newCategoryDto.getName() + "' already exists");
+            throw new ConflictException("Category with name '" + newCategoryDto.getName() + "' already exists");
         }
 
         category.setName(newCategoryDto.getName());

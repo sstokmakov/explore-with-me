@@ -1,4 +1,4 @@
-package ru.tokmakov.exception.category;
+package ru.tokmakov.exception;
 
 public class CategoryNotEmptyException extends RuntimeException {
     public CategoryNotEmptyException(String message) {

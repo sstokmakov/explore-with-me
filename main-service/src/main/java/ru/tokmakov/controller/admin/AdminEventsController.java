@@ -1,6 +1,5 @@
 package ru.tokmakov.controller.admin;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 import ru.tokmakov.dto.event.EventState;
@@ -24,26 +23,31 @@ public class AdminEventsController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<EventFullDto> findEvents(@RequestParam Set<Long> users,
-                                         @RequestParam Set<EventState> states,
-                                         @RequestParam Set<Long> categories,
-                                         @RequestParam String rangeStart,
-                                         @RequestParam String rangeEnd,
-                                         @Min(0) @RequestParam(required = false, defaultValue = "0") int from,
-                                         @Min(1) @RequestParam(required = false, defaultValue = "10") int size) {
-        return adminEventsService.findEvents(users, states, categories, rangeStart, rangeEnd, from, size);
+    public List<EventFullDto> findEvents(@RequestParam(required = false) Set<Long> users,
+                                         @RequestParam(required = false) Set<EventState> states,
+                                         @RequestParam(required = false) Set<Long> categories,
+                                         @RequestParam(required = false) String rangeStart,
+                                         @RequestParam(required = false) String rangeEnd,
+                                         @RequestParam(required = false, defaultValue = "0") Integer from,
+                                         @RequestParam(required = false, defaultValue = "10") Integer size) {
+        log.info("GET /admin/events - Parameters: users={}, states={}, categories={}, rangeStart={}, rangeEnd={}, from={}, size={}",
+                users, states, categories, rangeStart, rangeEnd, from, size);
+
+        List<EventFullDto> events = adminEventsService.findEvents(users, states, categories, rangeStart, rangeEnd, from, size);
+
+        log.info("GET /admin/events - Response: {} events found", events.size());
+        return events;
     }
 
     @PatchMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     public EventFullDto updateEvent(@PathVariable long eventId,
                                     @Validated @NotNull @RequestBody UpdateEventAdminRequest eventShortDto) {
-        log.info("Received request to update event with ID: {}", eventId);
+        log.info("PATCH /admin/events/{} - Updating event with ID: {}. Update request: {}", eventId, eventId, eventShortDto);
 
-        EventFullDto eventFullDto = adminEventsService.updateEvent(eventId, eventShortDto);
+        EventFullDto updatedEvent = adminEventsService.updateEvent(eventId, eventShortDto);
 
-        log.info("Event with ID: {} successfully updated", eventId);
-
-        return eventFullDto;
+        log.info("PATCH /admin/events/{} - Event updated successfully. Updated event details: {}", eventId, updatedEvent);
+        return updatedEvent;
     }
 }

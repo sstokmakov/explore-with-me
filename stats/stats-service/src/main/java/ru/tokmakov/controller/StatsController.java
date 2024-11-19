@@ -39,4 +39,12 @@ public class StatsController {
         log.info("Statistics fetched successfully with {} records", stats.size());
         return stats;
     }
+
+    @GetMapping
+    public Boolean existsByIp(@RequestParam String ip, @RequestParam String uri) {
+        log.info("StatsController exists by ip is called ip={}", ip);
+        Boolean res = statsService.existByIp(ip, uri);
+        log.info("StatsController exists by ip returned {}", res);
+        return res;
+    }
 }

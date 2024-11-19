@@ -1,5 +1,3 @@
-package ru.tokmakov.stat;
-
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class StatClient {
-    private static final String URL = "http://stats-server:9090";
+    private static final String URL = "http://localhost:9090/stats";
     private final RestTemplate restTemplate;
 
     public StatClient(RestTemplate restTemplate) {
@@ -20,7 +18,7 @@ public class StatClient {
     }
 
     public void recordHit(HitDto hitDto) {
-        restTemplate.postForEntity(URL + "/hit", hitDto, Void.class);
+        restTemplate.postForEntity(URL + "hit", hitDto, Void.class);
     }
 
     public List<StatsResponseDto> getStats(String start, String end, List<String> uris, boolean unique) {
@@ -44,9 +42,5 @@ public class StatClient {
                 new ParameterizedTypeReference<>() {
                 });
         return response.getBody();
-    }
-
-    public Boolean existsByIpAndUri(String ip, String uri) {
-        return restTemplate.getForObject(URL + "?ip=" + ip + "&uri=" + uri, Boolean.class);
     }
 }

@@ -26,31 +26,32 @@ public class AdminUsersController {
     public List<UserDto> findUsers(@RequestParam(required = false) Set<Long> ids,
                                    @RequestParam(required = false, defaultValue = "0") int from,
                                    @RequestParam(required = false, defaultValue = "10") int size) {
-        log.info("Received request to find users with parameters - IDs: {}, from: {}, size: {}", ids, from, size);
+        log.info("GET /admin/users - Fetching users with parameters: ids={}, from={}, size={}", ids, from, size);
 
         List<UserDto> users = adminUsersService.findUsers(ids, from, size);
 
-        log.info("Retrieved {} users", users.size());
+        log.info("GET /admin/users - Found {} users", users.size());
         return users;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto saveUser(@Validated @NotNull @RequestBody NewUserRequest newUser) {
-        log.info("Received request to save new user with email: {}", newUser.getEmail());
+        log.info("POST /admin/users - Creating new user with data: {}", newUser);
 
         UserDto savedUser = adminUsersService.saveUser(newUser);
 
-        log.info("User created successfully with ID: {}", savedUser.getId());
+        log.info("POST /admin/users - User created successfully: {}", savedUser);
         return savedUser;
     }
 
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable long userId) {
-        log.info("Received request to delete user with ID: {}", userId);
+        log.info("DELETE /admin/users/{} - Deleting user with userId={}", userId, userId);
 
         adminUsersService.deleteUser(userId);
-        log.info("Successfully deleted user with ID: {}", userId);
+
+        log.info("DELETE /admin/users/{} - User deleted successfully", userId);
     }
 }

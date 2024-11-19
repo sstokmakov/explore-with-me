@@ -3,8 +3,8 @@ package ru.tokmakov.service.admin;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tokmakov.exception.ConflictException;
 import ru.tokmakov.exception.NotFoundException;
-import ru.tokmakov.exception.user.EmailAlreadyExistsException;
 import ru.tokmakov.repository.UserRepository;
 import ru.tokmakov.dto.user.NewUserRequest;
 import ru.tokmakov.dto.user.UserDto;
@@ -48,7 +48,7 @@ public class AdminUsersServiceImpl implements AdminUsersService {
         log.info("Starting saveUser method for new user with email: {}", newUser.getEmail());
         if (adminUsersRepository.existsByEmail(newUser.getEmail())) {
             log.warn("Email already exists: {}", newUser.getEmail());
-            throw new EmailAlreadyExistsException("Email already exists");
+            throw new ConflictException("Email already exists");
         }
         User user = UserMapper.newUserRequestToUser(newUser);
         User savedUser = adminUsersRepository.save(user);
@@ -58,6 +58,7 @@ public class AdminUsersServiceImpl implements AdminUsersService {
         return UserMapper.userToUserDto(savedUser);
     }
 
+    @Transactional
     @Override
     public void deleteUser(long userId) {
         log.info("Attempting to delete user with ID: {}", userId);

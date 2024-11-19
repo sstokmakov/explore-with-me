@@ -6,7 +6,7 @@ import ru.tokmakov.dto.participation.ParticipationRequestDto;
 import java.util.List;
 
 public interface UserEventService {
-    List<EventShortDto> findEventsAddedByUser(Long userId, int from, int size);
+    List<EventShortDto> findEventsAddedByUser(Long userId, Integer from, Integer size);
 
     EventFullDto saveEvent(Long userId, NewEventDto newEventDto);
 
