@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>ru.tokmakov</groupId>
-            <artifactId>stats-dto</artifactId>
+            <artifactId>stats-ru.tokmakov.dto</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

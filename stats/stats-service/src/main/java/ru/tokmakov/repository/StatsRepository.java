@@ -31,4 +31,6 @@ public interface StatsRepository extends JpaRepository<Hit, Long> {
     List<StatsResponseDto> findUniqueHits(@Param("start") LocalDateTime start,
                                           @Param("end") LocalDateTime end,
                                           @Param("uris") List<String> uris);
+
+    Boolean existsByIpAndUri(String ip, String uri);
 }

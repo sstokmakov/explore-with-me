@@ -21,11 +21,10 @@ public class StatsController {
 
     @PostMapping("/hit")
     @ResponseStatus(HttpStatus.CREATED)
-    public HitDto save(@RequestBody HitDto hitDto) {
+    public void save(@RequestBody HitDto hitDto) {
         log.info("save hit: {}", hitDto);
         HitDto savedHit = statsService.save(hitDto);
         log.info("Hit saved successfully: {}", savedHit);
-        return savedHit;
     }
 
     @GetMapping("/stats")
@@ -39,5 +38,13 @@ public class StatsController {
         List<StatsResponseDto> stats = statsService.getStats(start, end, uris, unique);
         log.info("Statistics fetched successfully with {} records", stats.size());
         return stats;
+    }
+
+    @GetMapping
+    public Boolean existsByIp(@RequestParam String ip, @RequestParam String uri) {
+        log.info("StatsController exists by ip is called ip={}", ip);
+        Boolean res = statsService.existByIp(ip, uri);
+        log.info("StatsController exists by ip returned {}", res);
+        return res;
     }
 }
